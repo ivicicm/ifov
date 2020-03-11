@@ -2,9 +2,9 @@ function insertCornerMatrices(ADown ,AUp, fov)
 %BEGINDOC=================================================================
 % .Description.
 %
-% Generates 2^(n*(n-1)) matrices from interval matrix A, union of their 
-% fields of values is the field of value of A. The function inserts all
-% these matrices to fov using insertMatrix method.
+%   Generates 2^(n*(n-1)) matrices from interval matrix A, union of their 
+%   fields of values is the field of value of A. The function inserts all
+%   these matrices to fov using insertMatrix method.
 %
 %-------------------------------------------------------------------------
 % .Input parameters.
@@ -19,11 +19,8 @@ function insertCornerMatrices(ADown ,AUp, fov)
 %------------------------------------------------------------------------
 % .Implementation details. 
 %
-%   NOTE - 'sin' can also mean, that all possible pivots contain 0 because 
-%   of interval widening caused by interval operations
-%   'inf' can also mean, that intersection of all equations containing
-%   x_n during backward substitution is unbouded because of interval widening
-%   caused by interval operations
+%   Generated matrices and proof of correctness are described
+%   in hledani_vlastniho_cisla.pdf
 %
 %ENDDOC===================================================================
 
