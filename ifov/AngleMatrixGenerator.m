@@ -16,7 +16,7 @@ classdef AngleMatrixGenerator < handle
             obj.d = size(ADown,1);
         end
         
-        function generate(obj, fov) 
+        function generateAndInsert(obj, fov) 
            obj.d = size(obj.ADown,1);
            if obj.d == 1
                fov.insertMatrix(obj.AUp)
