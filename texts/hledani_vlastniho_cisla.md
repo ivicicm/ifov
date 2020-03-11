@@ -36,13 +36,13 @@ Nemusíme testovat všechny matice. U $x_i^*x_iA^\prime_{ii}$ bude koeficient v�
 
 Pokud vezmeme vektor $x$ z předchozího důkazu, jde využít jeho vlastností a netestovat všech $O(2^{n^2})$ matic. Nejdřív ať $\varphi \in [0, \pi/2)$. Definujeme $\alpha := \pi/2 - \varphi$. Když rozdělíme konvexní rovinu dvěma přímkami procházejícími počátkem, jednu kolmou na $u$, druhou na $v$ (v obrázku přerušované čáry), dostaneme čtyři souvislé oblasti. Každá z nich odpovídá jednomu vrcholu rovnoběžníku (když $x_i^*x_j$ bude v oblasti, maximum se bude nabývat v k ní příslušném vrcholu). 
 
-<img src="C:\Users\michal\Desktop\osy.svg" alt="osy" style="zoom:300%;" />
+<img src="osy.svg" alt="osy" style="zoom:300%;" />
 
 Pro přehlednost je rovnoběžník posunutý do počátku. Označme $\gamma$ úhel, který svírá  $x_i^*x_j$ s reálnou osou. Když například $\pi - \alpha \le \gamma \le \pi + \alpha$ , bude maximum účelové funkce po dosazení  $x_i^*x_j$ v levém vrcholu lichoběžníku. Příslušné prvky matice $A^\prime$ se pak mohou nastavit tak, aby byla účelová funkce pro $A^\prime$ nejvyšší možná.
 
 Pro nastavení matice $A^\prime$ je nutné vědět, do kterého ze čtyř intervalů úhly $\gamma$ patří. Takových úhlu je $n^2$. Jak se ukáže později, vektorů $x$, pro které jsou úhly v různých intervalech, je ale asymptoticky méně než $4^{n^2}$.
 
-<img src="C:\Users\michal\Desktop\circle.svg" alt="circle" style="zoom: 250%;" />
+<img src="circle.svg" alt="circle" style="zoom: 250%;" />
 
 Vezmeme složky vektoru $x$ a ty se zápornou složkou otočíme o $180^{\circ}$ okolo počátku. Předpokládejme, že o všech dvojicích takto získaných bodů víme, jestli pro úhel $\gamma^\prime$, který spolu svírají, platí $ \gamma^\prime \ge \alpha$ a jestli platí  $\gamma^\prime \ge \pi - \alpha$. Když k tomu přidáme informaci, které body byly otočeny a které ne, jdou odvodit příslušné intervaly pro všechny úhly $\gamma$. Například když $\gamma^\prime$ pro $x_i^*x_j$ je menší než $\alpha$ a jeden z bodů byl otočený a druhý ne, $\gamma$ bude patřit do intervalu popsaného výše (maximum bude v levém vrcholu). Pokud byly oba body otočeny nebo nebyl otočený žádný z nich, maximum bude v pravém rohu. Další případy se vyřeší podobně.
 
