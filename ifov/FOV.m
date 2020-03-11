@@ -1,11 +1,36 @@
  classdef FOV < handle
-    %Creates convex hull from fields of values of inserted matrices
+ %BEGINDOC=================================================================
+% .Description.
+%
+%   Computes convex hull from union of fields of values of inserted 
+%   matrices. The hull can be obtained in form of coordinates of boundry
+%   points in complex plane
+%
+%-------------------------------------------------------------------------
+% .Constructor input parameters.
+%   
+%   rotationCount ... number of boundry points
+%
+%------------------------------------------------------------------------
+% .Public methods and properties.
+%
+%   Coordinates ... coordinates of boundry points in complex plane
+%   insertMatrix ...
+%   
+%
+%------------------------------------------------------------------------
+% .Implementation details. 
+%
+%   Generated matrices and proof of correctness are described
+%   in hledani_vlastniho_cisla.pdf
+%
+%ENDDOC===================================================================
     
     properties (Access = private)
         BoundryPoints % 2 column matrix, 1st column boundry points, 2nd column corresponding eigenvalues
         RotationCount
     end
-    properties(SetAccess = private)
+    properties (SetAccess = private)
         MatrixCount = 0
     end
     properties (Dependent)
