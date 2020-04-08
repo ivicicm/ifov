@@ -18,12 +18,6 @@
 %   insertMatrix ...
 %   
 %
-%------------------------------------------------------------------------
-% .Implementation details. 
-%
-%   Generated matrices and proof of correctness are described
-%   in hledani_vlastniho_cisla.pdf
-%
 %ENDDOC===================================================================
     
     properties (Access = private)

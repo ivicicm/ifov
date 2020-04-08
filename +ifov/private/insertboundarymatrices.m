@@ -16,12 +16,6 @@ function insertCornerMatrices(ADown ,AUp, fov)
 %------------------------------------------------------------------------
 % .Output parameters.
 %
-%------------------------------------------------------------------------
-% .Implementation details. 
-%
-%   Generated matrices and proof of correctness are described
-%   in hledani_vlastniho_cisla.pdf
-%
 %ENDDOC===================================================================
 
 d = size(AUp,1);
