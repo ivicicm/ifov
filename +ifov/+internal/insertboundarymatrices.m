@@ -1,4 +1,4 @@
-function insertCornerMatrices(ADown ,AUp, fov)
+function insertboundarymatrices(ADown ,AUp, fov)
 %BEGINDOC=================================================================
 % .Description.
 %
