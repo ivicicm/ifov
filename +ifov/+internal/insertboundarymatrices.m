@@ -30,10 +30,10 @@ length = d*(d-1); % count of the nondiagonal elements of a matrix,
 % we can assign each nondiagonal element of matrix a unique number - its
 % position in matrix
 
+Elements = zeros(length, 2);
 % First column of Elements maps the position of an element 
 % in matrix to its x coordinate, second column to its
 % y coordinate
-Elements = zeros(length, 2);
 index = 1;
 for i = 1:d
     for j = 1:d

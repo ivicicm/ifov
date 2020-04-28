@@ -2,7 +2,7 @@ function coordinates = matrixfov(A,rotationCount)
 %BEGINDOC=================================================================
 % .Description.
 %
-%  Computes convex hull of a real matrix A.
+%  Computes field of values of a real matrix A.
 %
 %-------------------------------------------------------------------------
 % .Input parameters.

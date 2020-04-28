@@ -17,8 +17,9 @@
 %
 %   MatrixCount ... number of inserted matrices so far
 %   Coordinates ... coordinates of boundry points in complex plane
-%   
-%   
+%   insertMatrix ... adds real square matrix to contribute to the result
+%   insertFromTwoMatrices ... requires array of two matrices as input, first
+%   matrix is rotated from 0 to pi/2, second from pi/2 to pi
 %
 %ENDDOC===================================================================
     
@@ -70,7 +71,7 @@
             obj.MatrixCount = obj.MatrixCount + 1;
         end
         
-        function insertTwoMatrices(obj,matrices) % matrices is a 3D array 
+        function insertFromTwoMatrices(obj,matrices) % matrices is a 3D array 
             % of 2 2D matrices. First matrix is used for angles 0 - pi/2, 
             % second for angles pi/2 - pi
             i = 0;          
