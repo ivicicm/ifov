@@ -171,7 +171,7 @@ classdef AngleMatrixGenerator < handle
                    end
                end
             end
-            obj.fov.insertTwoMatrices(matrices);
+            obj.fov.insertFromTwoMatrices(matrices);
         end
         
         function createAndAddMatrix(obj, angles, rotations, permutations)
