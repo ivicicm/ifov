@@ -4,7 +4,7 @@
 %
 %   Computes convex hull from union of fields of values of inserted real
 %   matrices. The hull can be obtained in form of coordinates of boundry
-%   points in complex plane
+%   points in complex plane.
 %
 %-------------------------------------------------------------------------
 % .Constructor input parameters.
