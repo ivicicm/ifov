@@ -17,8 +17,7 @@ classdef AngleMatrixGenerator < handle
 %
 %   generateAndInsert ... generates the matrices and inserts them one by
 %   one into fov using insertFromTwoMatrices method. Details about the
-%   method parameters are described 
-%   in FOV.m
+%   method parameters are described in FOV.m
 %
 %ENDDOC===================================================================
 

@@ -1,8 +1,10 @@
-function coordinates = angleimatrixfov(ADown, AUp, rotationCount)
+function coordinates = anglesimatrixfov(ADown, AUp, rotationCount)
 %BEGINDOC=================================================================
 % .Description.
 %
-%  Computes convex hull of field of values of interval matrix A.
+%  Computes convex hull of field of values of interval matrix A. Is more
+%  efficient than imatrixfov but uses array of size 2^(d*(d-1)) to remember
+%  used matrices.
 %
 %-------------------------------------------------------------------------
 % .Input parameters.
