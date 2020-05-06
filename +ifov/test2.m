@@ -13,4 +13,11 @@ for i = 0:count
         plot(real(coords),imag(coords));
     end
 end
-    
+for i = [0 count]
+    for j= [0 count]
+        A = ADown + (i/count)*(B) + (j/count)*C;
+        coords = ifov.matrixfov(A,20);
+        coords = [coords; coords(1)];
+        plot(real(coords),imag(coords), 'LineWidth', 5);
+    end
+end
