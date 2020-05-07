@@ -44,9 +44,15 @@
             if obj.MatrixCount == 0
                 throw(MException('FOV:noMatrices' ,'No matrices were inserted.'));
             end
+            upCoordinates = obj.BoundryPoints(:,1);
+            % rounding real values close to zero to zero
+            for i = 1:size(upCoordinates)
+                if abs(real(upCoordinates(i))) < 1e-15
+                    upCoordinates(i) = 1i*imag(upCoordinates(i));
+                end
+            end
             % coordinates are symmetrical according to real axis, adding
             % negative part
-            upCoordinates = obj.BoundryPoints(:,1);
             downCoordinates = flip(conj(upCoordinates(2:end-1)));
             coordinates = [upCoordinates; downCoordinates];
         end  
