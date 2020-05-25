@@ -35,7 +35,10 @@
     end
         
     methods
-        function obj = FOV(rotationCount)        
+        function obj = FOV(rotationCount)
+            if mod(rotationCount, 2) == 1
+                rotationCount = rotationCount + 1;
+            end
             obj.RotationCount = rotationCount;
             obj.BoundryPoints = zeros(rotationCount, 2);
         end
@@ -77,9 +80,10 @@
             obj.MatrixCount = obj.MatrixCount + 1;
         end
         
-        function insertFromTwoMatrices(obj,matrices) % matrices is a 3D array 
-            % of 2 2D matrices. First matrix is used for angles 0 - pi/2, 
-            % second for angles pi/2 - pi
+        function insertFromTwoMatrices(obj, Right, Left) % Right matrix is 
+            % used for angles 0 - pi/2, Left for angles pi/2 - pi
+            matrices = Right;
+            matrices(:,:,2) = Left;
             i = 0;          
             for k = 1:2
                 while i <= (obj.RotationCount - 1)/2*k

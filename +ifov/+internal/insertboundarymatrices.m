@@ -53,7 +53,10 @@ values = zeros(length,1); % Element of values with index i represents
 % values can have 2^length different values, from these we obtain matrices
 % which we insert to fov. We iterate through values by "binariy adding 1"
 % to values
-fov.insertMatrix(A);
+
+DiagDelta = diag(diag(AUp - ADown));
+% diagonal elements will be changing depending on the angle
+fov.insertFromTwoMatrices(A, A - DiagDelta);
 i = 1; % index to position in values
 justReturned = false; % true if under ith element in values are only ones
 while i > 0
@@ -66,13 +69,13 @@ while i > 0
            for k = (i+1):length
                A(Elements(k,1),Elements(k,2)) = AUp(Elements(k,1),Elements(k,2));
            end
-           fov.insertMatrix(A);
+           fov.insertFromTwoMatrices(A, A - DiagDelta);
            i = i+1;
        else
            if i == length
                values(i) = 1;
                A(Elements(i,1),Elements(i,2)) = ADown(Elements(i,1),Elements(i,2));
-               fov.insertMatrix(A);
+               fov.insertFromTwoMatrices(A, A - DiagDelta);
            else
               i = i+1; 
            end

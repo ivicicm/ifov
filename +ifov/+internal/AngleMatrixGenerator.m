@@ -133,13 +133,13 @@ classdef AngleMatrixGenerator < handle
             % than pi/2. Both are converted to matrices from interval
             % matrix A and are inserted to fov.
             
-            matrices = zeros(obj.d,obj.d,2);
+            matrices = zeros(obj.d,obj.d,2); % First matrix will be Right,
+            % second Left
             for j=1:obj.d
                for i=1:obj.d
                    if i == j
-                       for k=1:2
-                          matrices(i,i,k) = obj.AUp(i,i); 
-                       end
+                       matrices(i,i,1) = obj.AUp(i,i);
+                       matrices(i,i,2) = obj.ADown(i,i); 
                        break
                    end
                    aij = A(i,j);
@@ -170,7 +170,7 @@ classdef AngleMatrixGenerator < handle
                    end
                end
             end
-            obj.fov.insertFromTwoMatrices(matrices);
+            obj.fov.insertFromTwoMatrices(matrices(:,:,1), matrices(:,:,2));
         end
         
         function createAndAddMatrix(obj, angles, rotations, permutations)
