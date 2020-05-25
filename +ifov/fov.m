@@ -21,7 +21,7 @@ function coordinates = matrixfov(A,rotationCount)
 %ENDDOC===================================================================
 
 fov = ifov.internal.FOV(rotationCount);
-fov.insertMatrix(A);
+fov.insertFromTwoMatrices(A,A);
 coordinates = fov.Coordinates;
 
 end

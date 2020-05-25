@@ -58,26 +58,6 @@
             % negative part
             downCoordinates = flip(conj(upCoordinates(2:end-1)));
             coordinates = [upCoordinates; downCoordinates];
-        end  
-        
-        function insertMatrix(obj,A)
-            for i = 0:(obj.RotationCount - 1)
-            	angle = i / (obj.RotationCount - 1) * pi;
-                ARotated = exp(1j*angle)*A;
-                ARotatedHermitian = (ARotated + ARotated')/2;
-                [V,D] = eig(ARotatedHermitian);
-                eigenvalues = real(diag(D));
-                
-                [maxEigval, maxIndex] = max(eigenvalues);
-                if obj.MatrixCount == 0 || obj.BoundryPoints(i+1, 2) < maxEigval
-                    % assigning new max value in the direction of angle
-                    obj.BoundryPoints(i+1, 2) = maxEigval;
-                    maxEigvector = V(:, maxIndex);
-                    maxEigvector = maxEigvector/norm(maxEigvector);
-                    obj.BoundryPoints(i+1, 1) = maxEigvector'*A*maxEigvector;
-                end
-            end
-            obj.MatrixCount = obj.MatrixCount + 1;
         end
         
         function insertFromTwoMatrices(obj, Right, Left) % Right matrix is 
@@ -88,7 +68,6 @@
             for k = 1:2
                 while i <= (obj.RotationCount - 1)/2*k
                     A = matrices(:,:,k);
-                    % following code is almost the same as in isertMatrix
                     angle = i / (obj.RotationCount - 1) * pi;
                     ARotated = exp(1j*angle)*A;
                     ARotatedHermitian = (ARotated + ARotated')/2;
@@ -97,6 +76,7 @@
                 
                     [maxEigval, maxIndex] = max(eigenvalues);
                     if obj.MatrixCount == 0 || obj.BoundryPoints(i+1, 2) < maxEigval
+                        % assigning new max value in the direction of angle
                         obj.BoundryPoints(i+1, 2) = maxEigval;
                         maxEigvector = V(:, maxIndex);
                         maxEigvector = maxEigvector/norm(maxEigvector);
