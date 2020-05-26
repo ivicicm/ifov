@@ -88,19 +88,19 @@ classdef AngleMatrixGenerator < handle
                         end
                     elseif xi == xmin
                         if rotations(i) == rotations(j)
-                            % upper corner
-                            A(i,j) = 1; % A(j,i) = 0;
-                        else
                             % lower corner
                             A(j,i) = 1; % A(i,j) = 0;
+                        else
+                            % upper corner
+                            A(i,j) = 1; % A(j,i) = 0;
                         end
                     else % xj == xmin 
                         if rotations(i) == rotations(j)
-                            % lower corner
-                            A(j,i) = 1; % A(i,j) = 0;
-                        else
                             % uppper corner
                             A(i,j) = 1; % A(j,i) = 0;
+                        else
+                            % lower corner
+                            A(j,i) = 1; % A(i,j) = 0;
                         end
                     end
                 end
