@@ -1,8 +1,9 @@
-function coordinates = imatrixfov(ADown, AUp, rotationCount)
+function coordinates = ifov(ADown, AUp, rotationCount)
 %BEGINDOC=================================================================
 % .Description.
 %
-%  Computes convex hull of field of values of interval matrix A.
+%  Computes convex hull of field of values of interval matrix A. The
+%  function uses basic algorithm.
 %
 %-------------------------------------------------------------------------
 % .Input parameters.

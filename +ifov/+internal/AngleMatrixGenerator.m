@@ -27,7 +27,7 @@ classdef AngleMatrixGenerator < handle
         fov
         d % row or column count of A
         matrixPool % bool array of size 2^(d*(d-1)), each member represents 
-            % a matrix. If its value is true, the matrix was already inserted
+        % a matrix. If its value is true, the matrix was already inserted
     end
    
     methods
@@ -38,9 +38,12 @@ classdef AngleMatrixGenerator < handle
         end
         
         function generateAndInsert(obj, fov) 
+           % Generates the matrices and inserts them one by
+           % one into fov using insertFromTwoMatrices method
+           
            obj.d = size(obj.ADown,1);
            if obj.d == 1
-               fov.insertMatrix(obj.AUp)
+               fov.insertFromTwoMatrices(obj.AUp, obj.ADown);
                return
            end
            obj.fov = fov;
@@ -53,7 +56,7 @@ classdef AngleMatrixGenerator < handle
         function A = generateMatrix(obj, angles, rotations, permutations)
             % Returns matrix of 1s and 0s. If we substitute values from AUp
             % for ones and values from ADown for zeros, we get a real
-            % matrix from interval matrix A.
+            % matrix from interval matrix A generated from parameters.
             
             A = eye(obj.d);
             for j = 1:obj.d
@@ -105,7 +108,7 @@ classdef AngleMatrixGenerator < handle
         end
         
         function result = testMatrix(obj,A)
-            % returns true if matrix hasn't been inserted yet. If it hasn't 
+            % Returns true if matrix hasn't been inserted yet. If it hasn't 
             % been inserted, the corresponding element in matrixPool is set to true
             
             % A ... matrix of ones and zeros, diagonal elements are not
@@ -128,7 +131,7 @@ classdef AngleMatrixGenerator < handle
         end
         
         function insertMatrices(obj, A)
-            % First creates array of two matrices, first is A, second is a
+            % Creates array of two matrices, first is A, second is a
             % matrix based on A used when the angle of rotation is more
             % than pi/2. Both are converted to matrices from interval
             % matrix A and are inserted to fov.
@@ -137,10 +140,12 @@ classdef AngleMatrixGenerator < handle
             % second Left
             for j=1:obj.d
                for i=1:obj.d
+                   % Adding ones and zeros to matrices, these will be later
+                   % conveted to actual values.
                    if i == j
                        matrices(i,i,1) = obj.AUp(i,i);
                        matrices(i,i,2) = obj.ADown(i,i); 
-                       break
+                       break;
                    end
                    aij = A(i,j);
                    aji = A(j,i);
@@ -148,14 +153,15 @@ classdef AngleMatrixGenerator < handle
                    matrices(i,j,1) = aij;
                    matrices(j,i,1) = aji;
                    if aij == aji
-                       newValue = mod(aij + 1, 2);
-                       matrices(i,j,2) = newValue;
-                       matrices(j,i,2) = newValue;
+                       otherValue = mod(aij + 1, 2);
+                       matrices(i,j,2) = otherValue;
+                       matrices(j,i,2) = otherValue;
                    else
                        matrices(i,j,2) = aij;
                        matrices(j,i,2) = aji;
                    end                
                    
+                   % Making actual matrices from interval matrix A
                    for k=1:2
                        if matrices(i,j,k) == 1
                            matrices(i,j,k) = obj.AUp(i,j);
@@ -174,6 +180,9 @@ classdef AngleMatrixGenerator < handle
         end
         
         function createAndAddMatrix(obj, angles, rotations, permutations)
+            % Generates matrix according to angles, rotations and
+            % permutations. If it wasn't inserted, inserts it.
+            
             A = obj.generateMatrix(angles, rotations, permutations);
             if obj.testMatrix(A)
                 obj.insertMatrices(A);
@@ -213,11 +222,11 @@ classdef AngleMatrixGenerator < handle
             % angles ... 2 column matrix, first column at the end of the
             % recursion will mean to what index from the current index the
             % angle difference between xj and xi is less then alpha. The
-            % column can be imagined as a circle becouse the interval
+            % column can be imagined as a circle because the interval
             % between xi and xj can start in the end of the column and
             % finish in the beginning. Second column is a bound for the first.
             % i ... current index in angles being recursively filled out
-            % min ... minimal value for for angles(i,1)
+            % min ... minimal value for angles(i,1)
             
             if i > obj.d
                 obj.generatePermutationsAndRotations(angles(:,1),[], [], 2:(obj.d));

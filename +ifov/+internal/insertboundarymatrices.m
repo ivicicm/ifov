@@ -2,7 +2,7 @@ function insertboundarymatrices(ADown ,AUp, fov)
 %BEGINDOC=================================================================
 % .Description.
 %
-%   Generates 2^(n*(n-1)) matrices from interval matrix A, union of their 
+%   Generates 2^(n*(n-1)+1) matrices from interval matrix A, union of their 
 %   fields of values is the field of value of A. The function inserts all
 %   these matrices to fov using insertMatrix method.
 %
@@ -22,8 +22,8 @@ d = size(AUp,1);
 
 % 1x1 interval matrix was entered 
 if d == 1
-    fov.insertMatrix(AUp);
-    return
+    fov.insertFromTwoMatrices(AUp,ADown);
+    return;
 end
 
 length = d*(d-1); % count of the nondiagonal elements of a matrix,
@@ -54,9 +54,10 @@ values = zeros(length,1); % Element of values with index i represents
 % which we insert to fov. We iterate through values by "binariy adding 1"
 % to values
 
-DiagDelta = diag(diag(AUp - ADown));
 % diagonal elements will be changing depending on the angle
+DiagDelta = diag(diag(AUp - ADown));
 fov.insertFromTwoMatrices(A, A - DiagDelta);
+
 i = 1; % index to position in values
 justReturned = false; % true if under ith element in values are only ones
 while i > 0

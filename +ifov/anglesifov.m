@@ -1,4 +1,4 @@
-function coordinates = anglesimatrixfov(ADown, AUp, rotationCount)
+function coordinates = anglesifov(ADown, AUp, rotationCount)
 %BEGINDOC=================================================================
 % .Description.
 %

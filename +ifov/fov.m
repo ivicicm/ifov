@@ -1,4 +1,4 @@
-function coordinates = matrixfov(A,rotationCount)
+function coordinates = fov(A,rotationCount)
 %BEGINDOC=================================================================
 % .Description.
 %

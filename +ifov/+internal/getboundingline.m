@@ -2,25 +2,27 @@ function line = getboundingline(ADown, AUp, angle)
 %BEGINDOC=================================================================
 % .Description.
 %
-%   Generates 2^(n*(n-1)) matrices from interval matrix A, union of their 
-%   fields of values is the field of value of A. The function inserts all
-%   these matrices to fov using insertMatrix method.
+%   Computes a line that bounds field of values of interval matrix A
 %
 %-------------------------------------------------------------------------
 % .Input parameters.
 %   
 %   ADown ... lower bound of interval matrix A
 %   AUp ... upper bound of interval matrix A
-%   fov ... instance of class FOV
+%   angle ... angle from which the field of values will be bounded
 %
 %------------------------------------------------------------------------
 % .Output parameters.
+%
+%   lines ... vector of 2 complex numbers - points in complex plane. The
+%   line is defined by those 2 points.
 %
 %ENDDOC===================================================================
 
 ADownRotated = exp(1i * angle)*ADown;
 AUpRotated = exp(1i * angle)*AUp;
 
+% Constructs complex interval matrix A + iB
 if angle <= pi/2
     CDown = ADownRotated + ADownRotated';
     CUp = AUpRotated + AUpRotated';
