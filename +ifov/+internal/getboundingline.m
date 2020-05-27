@@ -23,15 +23,15 @@ ADownRotated = exp(1i * angle)*ADown;
 AUpRotated = exp(1i * angle)*AUp;
 
 % Constructs complex interval matrix A + iB
-if angle <= pi/2
+if angle >= -pi/2
     CDown = real(ADownRotated + ADownRotated');
     CUp = real(AUpRotated + AUpRotated');
 else
     CDown = real(AUpRotated + AUpRotated');
     CUp = real(ADownRotated + ADownRotated');
 end
-DDown = imag(ADownRotated + AUpRotated');
-DUp = imag(AUpRotated + ADownRotated');
+DDown = imag(AUpRotated + ADownRotated');
+DUp = imag(ADownRotated + AUpRotated');
 
 % optimizing diagonal values
 CDown = CDown + diag(diag(CUp) - diag(CDown));
