@@ -24,23 +24,27 @@ AUpRotated = exp(1i * angle)*AUp;
 
 % Constructs complex interval matrix A + iB
 if angle <= pi/2
-    CDown = ADownRotated + ADownRotated';
-    CUp = AUpRotated + AUpRotated';
+    CDown = real(ADownRotated + ADownRotated');
+    CUp = real(AUpRotated + AUpRotated');
 else
-    CDown = AUpRotated + AUpRotated';
-    CUp = ADownRotated + ADownRotated';
+    CDown = real(AUpRotated + AUpRotated');
+    CUp = real(ADownRotated + ADownRotated');
 end
-DDown = ADownRotated + AUpRotated';
-DUp = AUpRotated + ADownRotated';
+DDown = imag(ADownRotated + AUpRotated');
+DUp = imag(AUpRotated + ADownRotated');
+
+% optimizing diagonal values
+CDown = CDown + diag(diag(CUp) - diag(CDown));
 DDown = DDown - diag(diag(DDown));
+DUp = DUp - diag(diag(DUp));
 
 CCenter = (CDown + CUp)/2;
 CDelta = (CUp - CDown)/2;
 DCenter = (DDown + DUp)/2;
 DDelta = (DUp - DDown)/2;
 
-bound = eigs([CCenter DCenter'; DCenter CCenter],1,'largestreal')...
-    + abs(eigs([CDelta DDelta; DDelta CDelta],1,'largestabs'));
+bound = eigs([CCenter DCenter'; DCenter CCenter],1,'la')...
+    + abs(eigs([CDelta DDelta; DDelta CDelta],1,'lm'));
 
 line = exp(-1i*angle)*[bound; bound + 1i];
 end
