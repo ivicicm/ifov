@@ -9,7 +9,8 @@ function line = getboundingline(ADown, AUp, angle)
 %   
 %   ADown ... lower bound of interval matrix A
 %   AUp ... upper bound of interval matrix A
-%   angle ... angle from which the field of values will be bounded
+%   angle ... angle from which the field of values will be bounded, 
+%   only works for values in [-pi,0] 
 %
 %------------------------------------------------------------------------
 % .Output parameters.
