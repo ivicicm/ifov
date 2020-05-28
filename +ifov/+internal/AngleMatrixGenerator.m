@@ -47,7 +47,9 @@ classdef AngleMatrixGenerator < handle
                return
            end
            obj.fov = fov;
-           obj.matrixPool = false(2^(obj.d*(obj.d-1)),1);
+           if obj.d < 7
+               obj.matrixPool = false(2^(obj.d*(obj.d-1)),1);
+           end
            angles = zeros(obj.d, 2); 
            obj.generateAngles(angles, 1, 1);
         end
@@ -184,7 +186,7 @@ classdef AngleMatrixGenerator < handle
             % permutations. If it wasn't inserted, inserts it.
             
             A = obj.generateMatrix(angles, rotations, permutations);
-            if obj.testMatrix(A)
+            if obj.d > 6 || obj.testMatrix(A)
                 obj.insertMatrices(A);
             end
         end
