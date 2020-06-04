@@ -9,7 +9,7 @@ function coordinates = fov(A,rotationCount)
 %   
 %   A ... real square matrix
 %   rotationCount ... number of times matrix will be rotated during
-%   function execution
+%   function execution. Parameter is optional, default value is 30.
 %
 %------------------------------------------------------------------------
 % .Output parameters.
@@ -19,6 +19,11 @@ function coordinates = fov(A,rotationCount)
 %  rotationCount * 2 - 2
 %
 %ENDDOC===================================================================
+
+% Assigning default values
+if nargin < 2
+    rotationCount = 30;
+end
 
 fov = ifov.internal.FOV(rotationCount);
 fov.insertFromTwoMatrices(A,A);

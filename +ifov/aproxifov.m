@@ -11,7 +11,7 @@ function coordinates = aproxifov(ADown, AUp, rotationCount)
 %   AUp ... upper bound of interval matrix A
 %   ADown ... lower bound of interval matrix A
 %   rotationCount ... number of times matrix will be rotated during
-%   function execution
+%   function execution. Parameter is optional, default value is 30.
 %
 %------------------------------------------------------------------------
 % .Output parameters.
@@ -21,6 +21,14 @@ function coordinates = aproxifov(ADown, AUp, rotationCount)
 %  rotationCount * 2 - 2
 %
 %ENDDOC===================================================================
+
+% Checking parameters and assigning default values
+if size(ADown,1) ~= size(AUp,1) || ~isequal(ADown <= AUp, true(size(ADown)))
+    throw(MException('fov:notIntervalMatrix' ,'Interval matrix A is not defined correctly.'));
+end
+if nargin < 3
+    rotationCount = 30;
+end
 
 lines = zeros(2, rotationCount); % array of lines defined by two points
 % Computing the bounding lines
@@ -126,7 +134,9 @@ function [intersection, pmul, qmul] = intersectLines(p, q)
     b = [real(q(1)) - real(p(1)); imag(q(1)) - imag(p(1))];
     
     warning('off','MATLAB:singularMatrix')
+    warning('off','MATLAB:nearlysingularMatrix')
     x = A\b;
+    warning('on','MATLAB:nearlysingularMatrix')
     warning('on','MATLAB:singularMatrix')
     intersection = p(1) + x(1)*u; % = q(1) + x(2) * v 
     pmul = x(1);

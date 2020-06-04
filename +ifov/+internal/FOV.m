@@ -45,7 +45,7 @@
             % numbers.
                 
             if obj.MatrixCount == 0
-                throw(MException('FOV:noMatrices' ,'No matrices were inserted.'));
+                throw(MException('fov:noMatrices' ,'No matrices were inserted.'));
             end
             upCoordinates = obj.BoundaryPoints(:,1);
             % rounding real values close to zero to zero
