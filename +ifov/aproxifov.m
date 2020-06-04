@@ -62,11 +62,11 @@ function [removedFrom, intersectionFrom, removedTo, intersectionTo] = intersectH
     % is not parallel to any line in the hull. The line
     % intersects at two points with the lines of the polygon -
     % intersectionTo and intersectionFrom. removedFrom and removedTo
-    % indicates an interval of points that will be cut off from the hull if
+    % indicate an interval of points that will be cut off from the hull if
     % we make an intersection of the halfspace defined by line and the
     % infinite polygon.
     % Returns -1 in all arguments if the line doesn't intersect with the
-    % hull.
+    % hull or it intersects with it in only one point.
     
     foundFirst = false;
     % checking intersection with the line from first point leading down
@@ -99,7 +99,15 @@ function [removedFrom, intersectionFrom, removedTo, intersectionTo] = intersectH
         return
     end
     % checking intersection with the line from last point leading down
-    intersection = intersectLines([hull(end);hull(end)-1i], line);
+    [intersection, mul] = intersectLines([hull(end);hull(end)-1i], line);
+    if mul <= 0
+        % intersection with only one point of the hull
+        removedFrom = -1;
+        intersectionFrom = -1;
+        removedTo = -1;
+        intersectionTo = -1;
+        return
+    end
     intersectionTo = intersection;
     removedTo = length(hull)-1;
 end
