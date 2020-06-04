@@ -33,14 +33,18 @@ end
 % vertices will represent points in the upper half of the bounding polygon
 % we start by infinite polygon defined by three lines. Then we intersect it
 % with all the halfspaces from the remaining lines.
-vertices = [intersectLines(lines(:,1),lines(:,rotationCount/2+1)),...
-    intersectLines(lines(:,rotationCount/2+1),lines(:,end))];
+vertices = [intersectLines(lines(:,1),lines(:,fix(rotationCount/2)+1)),...
+    intersectLines(lines(:,fix(rotationCount/2)+1),lines(:,end))];
 
 for i = (rotationCount - 2):-1:2
-    if i == rotationCount/2+1
+    if i == fix(rotationCount/2)+1
         continue
     end
     [removedFrom, intersectionFrom, removedTo, intersectionTo] = intersectHull(vertices, lines(:,i));
+    if removedFrom == -1
+        % no intersection
+        continue;
+    end
     vertices = [vertices(1:(removedFrom-1)) intersectionFrom intersectionTo vertices((removedTo+1):end)];
 end
 
@@ -61,6 +65,8 @@ function [removedFrom, intersectionFrom, removedTo, intersectionTo] = intersectH
     % indicates an interval of points that will be cut off from the hull if
     % we make an intersection of the halfspace defined by line and the
     % infinite polygon.
+    % Returns -1 in all arguments if the line doesn't intersect with the
+    % hull.
     
     foundFirst = false;
     % checking intersection with the line from first point leading down
@@ -84,6 +90,14 @@ function [removedFrom, intersectionFrom, removedTo, intersectionTo] = intersectH
             end
         end
     end
+    if foundFirst == false
+        % no intersection
+        removedFrom = -1;
+        intersectionFrom = -1;
+        removedTo = -1;
+        intersectionTo = -1;
+        return
+    end
     % checking intersection with the line from last point leading down
     intersection = intersectLines([hull(end);hull(end)-1i], line);
     intersectionTo = intersection;
@@ -103,7 +117,9 @@ function [intersection, pmul, qmul] = intersectLines(p, q)
     A = [real(u) -real(v); imag(u) -imag(v)];
     b = [real(q(1)) - real(p(1)); imag(q(1)) - imag(p(1))];
     
+    warning('off','MATLAB:singularMatrix')
     x = A\b;
+    warning('on','MATLAB:singularMatrix')
     intersection = p(1) + x(1)*u; % = q(1) + x(2) * v 
     pmul = x(1);
     qmul = x(2);
