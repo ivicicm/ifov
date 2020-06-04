@@ -32,9 +32,10 @@ coords = ifov.aproxifov(ADown,AUp,25);
 coords = [coords; coords(1)];
 plot(real(coords),imag(coords));
 
+
 % It is also possible to omit the parameter rotationCount (here number 25)
 % in every function. Then it wil have a default value of 30. Here is an
-% example of calling ifov with default value of rotationCount.
+% example of calling fov with default value of rotationCount.
 coords = ifov.fov(ADown);
 coords = [coords; coords(1)];
 plot(real(coords),imag(coords));

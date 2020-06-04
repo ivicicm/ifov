@@ -74,9 +74,9 @@ function [removedFrom, intersectionFrom, removedTo, intersectionTo] = intersectH
     % we make an intersection of the halfspace defined by line and the
     % infinite polygon.
     % Returns -1 in all arguments if the line doesn't intersect with the
-    % hull or it intersects with it in only one point.
+    % polygon or it intersects with it in only one point.
     
-    foundFirst = false;
+    foundFirst = false; % states whether the first intersection point was found
     % checking intersection with the line from first point leading down
     [intersection, mul] = intersectLines([hull(1);hull(1)-1i], line);
     if mul > 0
@@ -124,8 +124,8 @@ function [intersection, pmul, qmul] = intersectLines(p, q)
     % Computes intersection of two lines. p and q are vectors of two complex
     % numbers - two points which define a line. pmul is the number with
     % which we multiply the difference of the two points in p.
-    % This multiplied difference plus first point in p is equal to the intersection. 
-    % Similarly for qmul.
+    % This multiplied difference plus first point in p is equal to the 
+    % intersection of the two lines. Similarly for qmul.
     
     u = p(2) - p(1);
     v = q(2) - q(1);
@@ -138,6 +138,7 @@ function [intersection, pmul, qmul] = intersectLines(p, q)
     x = A\b;
     warning('on','MATLAB:nearlysingularMatrix')
     warning('on','MATLAB:singularMatrix')
+    
     intersection = p(1) + x(1)*u; % = q(1) + x(2) * v 
     pmul = x(1);
     qmul = x(2);
