@@ -79,7 +79,7 @@ function [removedFrom, intersectionFrom, removedTo, intersectionTo] = intersectH
     foundFirst = false; % states whether the first intersection point was found
     % checking intersection with the line from first point leading down
     [intersection, mul] = intersectLines([hull(1);hull(1)-1i], line);
-    if mul > 0
+    if mul >= 0
         foundFirst = true;
         intersectionFrom = intersection;
         removedFrom = 1;
